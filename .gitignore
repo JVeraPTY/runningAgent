@@ -1,0 +1,16 @@
+# Credenciales y secretos (nunca subir a GitHub)
+.env
+.env.dev
+.env.local
+.env.*.local
+
+# Token de Strava (se genera al autorizar)
+strava_token.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+.env.venv
