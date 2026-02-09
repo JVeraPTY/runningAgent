@@ -1,75 +1,75 @@
 # 🏃 Running Coach Agent
 
-Coach de running personal powered by **Strava** + **Claude AI**
+Personal running coach powered by **Strava** + **Claude AI**
 
-## 🎯 Características
+## 🎯 Features
 
-- ✅ Análisis automático de tus entrenamientos de Strava
-- ✅ Consejos personalizados basados en tus datos reales
-- ✅ Predicción de tiempos de carrera
-- ✅ Sugerencias de entrenamientos específicos
-- ✅ Detección de riesgos de lesión
-- ✅ Calculadora de paces de entrenamiento
-- ✅ Chat libre con el coach para cualquier duda
+- ✅ Automatic analysis of your Strava workouts
+- ✅ Personalized advice based on your real data
+- ✅ Race time predictions
+- ✅ Specific workout suggestions
+- ✅ Injury risk detection
+- ✅ Training pace calculator
+- ✅ Free chat with the coach for any questions
 
-## 📋 Requisitos Previos
+## 📋 Prerequisites
 
 1. **Python 3.8+**
-2. **Cuenta de Strava** (con datos de entrenamiento)
-3. **API Key de Anthropic Claude**
+2. **Strava account** (with training data)
+3. **Anthropic Claude API Key**
 4. **Strava API Application**
 
-## 🚀 Instalación
+## 🚀 Installation
 
-### 1. Clonar o descargar el proyecto
+### 1. Clone or download the project
 
 ```bash
 cd running-coach-agent
 ```
 
-### 2. Crear entorno virtual (recomendado)
+### 2. Create virtual environment (recommended)
 
 ```bash
 python3 -m venv venv
-source venv/bin/activate  # En Windows WSL/Linux
-# o
-venv\Scripts\activate    # En Windows CMD
+source venv/bin/activate  # On Windows WSL/Linux
+# or
+venv\Scripts\activate    # On Windows CMD
 ```
 
-### 3. Instalar dependencias
+### 3. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Configurar Strava API
+### 4. Configure Strava API
 
-1. Ve a: https://www.strava.com/settings/api
-2. Crea una nueva aplicación:
+1. Go to: https://www.strava.com/settings/api
+2. Create a new application:
    - **Application Name**: Running Coach Agent
    - **Category**: Training
    - **Website**: http://localhost
    - **Authorization Callback Domain**: localhost
 
-3. Copia tus credenciales:
+3. Copy your credentials:
    - `Client ID`
    - `Client Secret`
 
-### 5. Configurar Claude API
+### 5. Configure Claude API
 
-1. Ve a: https://console.anthropic.com/
-2. Genera una API Key en la sección "API Keys"
-3. Copia tu API Key
+1. Go to: https://console.anthropic.com/
+2. Generate an API Key in the "API Keys" section
+3. Copy your API Key
 
-### 6. Configurar credenciales (archivo .env)
+### 6. Configure credentials (.env file)
 
-Los IDs y secretos no van en el código; se cargan desde un archivo `.env` o `.env.dev` que **no se sube a GitHub**.
+IDs and secrets are not stored in code; they're loaded from a `.env` or `.env.dev` file that **is NOT uploaded to GitHub**.
 
-1. Copia la plantilla:
+1. Copy the template:
    ```bash
    cp .env.example .env
    ```
-2. Edita `.env` (o `.env.dev`) y rellena con tus credenciales reales:
+2. Edit `.env` (or `.env.dev`) and fill with your real credentials:
 
 ```bash
 # Strava API - https://www.strava.com/settings/api
@@ -81,205 +81,205 @@ STRAVA_REDIRECT_URI=http://localhost:8000/authorized
 CLAUDE_API_KEY=sk-ant-api...
 ```
 
-## 🎮 Uso
+## 🎮 Usage
 
-### Ejecutar la aplicación
+### Run the application
 
 ```bash
-# Activa el entorno virtual primero (si usas venv)
+# Activate virtual environment first (if using venv)
 source venv/bin/activate  # Linux/WSL
-# o venv\Scripts\activate  # Windows CMD
+# or venv\Scripts\activate  # Windows CMD
 
 python main.py
 ```
 
-### Primera vez - Autenticación con Strava
+### First time - Strava Authentication
 
-1. **La aplicación mostrará una URL** en la terminal
-2. **Copia y pega la URL** en tu navegador
-3. **Haz clic en "Authorize"** en la página de Strava
-4. **Copia la URL completa** de la barra de direcciones después de la redirección
-   - La URL se verá así: `http://localhost:8000/authorized?state=&code=XXXXX&scope=...`
-   - Aunque el navegador muestre error, la URL contiene el código necesario
-5. **Pega la URL completa** (o solo el código) en la terminal cuando se te pida
-6. El token se guardará en `strava_token.json` para futuros usos
+1. **The application will display a URL** in the terminal
+2. **Copy and paste the URL** into your browser
+3. **Click "Authorize"** on the Strava page
+4. **Copy the complete URL** from the address bar after redirection
+   - The URL will look like: `http://localhost:8000/authorized?state=&code=XXXXX&scope=...`
+   - Even if the browser shows an error, the URL contains the necessary code
+5. **Paste the complete URL** (or just the code) in the terminal when prompted
+6. The token will be saved in `strava_token.json` for future use
 
-> 💡 **Nota WSL**: Si ejecutas desde Windows Subsystem for Linux, el servidor HTTP no funcionará automáticamente. Por eso usamos el método manual de copiar/pegar el código.
+> 💡 **WSL Note**: If running from Windows Subsystem for Linux, the HTTP server won't work automatically. That's why we use the manual copy/paste method for the code.
 
-### Menú Principal
+### Main Menu
 
 ```
-1. Ver resumen de entrenamiento
-2. Análisis completo del coach
-3. Predecir tiempo de carrera
-4. Sugerir entrenamiento
-5. Consejos de prevención de lesiones
-6. Hacer pregunta al coach
-7. Calcular paces de entrenamiento
-8. Ver estadísticas de Strava
-9. Salir
+1. View training summary
+2. Complete coach analysis
+3. Predict race time
+4. Suggest workout
+5. Injury prevention tips
+6. Ask the coach a question
+7. Calculate training paces
+8. View Strava statistics
+9. Exit
 ```
 
-## 💡 Ejemplos de Uso
+## 💡 Usage Examples
 
-### Análisis de Entrenamiento
+### Training Analysis
 
-El coach analizará automáticamente:
-- Volumen semanal y tendencias
-- Progresión de carga (regla del 10%)
-- Distribución de paces
-- Riesgos potenciales
+The coach will automatically analyze:
+- Weekly volume and trends
+- Load progression (10% rule)
+- Pace distribution
+- Potential risks
 
-### Predicción de Carrera
+### Race Prediction
 
-Basándose en tus entrenamientos recientes, predice tiempos para:
+Based on your recent workouts, predicts times for:
 - 5K
 - 10K
-- Media Maratón
-- Maratón
+- Half Marathon
+- Marathon
 
-### Sugerencias de Entrenamientos
+### Workout Suggestions
 
-Genera planes detallados para:
-- Intervalos
+Generates detailed plans for:
+- Intervals
 - Tempo runs
-- Carrera larga
-- Recuperación
+- Long run
+- Recovery
 - Fartlek
 
-### Chat Libre
+### Free Chat
 
-Pregunta cualquier cosa sobre running:
-- "¿Cómo mejoro mi pace en 5K?"
-- "¿Estoy entrenando demasiado?"
-- "¿Qué ejercicios de fuerza me recomiendas?"
+Ask anything about running:
+- "How can I improve my 5K pace?"
+- "Am I training too much?"
+- "What strength exercises do you recommend?"
 
-## 🏗️ Arquitectura
+## 🏗️ Architecture
 
 ```
 ┌─────────────┐
-│   Strava    │  ← Datos de entrenamientos
+│   Strava    │  ← Training data
 └──────┬──────┘
        │
        ▼
 ┌──────────────────┐
-│ Training Analyzer │  ← Análisis de métricas
+│ Training Analyzer │  ← Metrics analysis
 └──────┬───────────┘
        │
        ▼
 ┌──────────────────┐
-│  Running Coach   │  ← Agente con Claude
+│  Running Coach   │  ← Agent with Claude
 └──────┬───────────┘
        │
        ▼
 ┌──────────────────┐
-│   Main App CLI   │  ← Interfaz de usuario
+│   Main App CLI   │  ← User interface
 └──────────────────┘
 ```
 
-## 📁 Estructura del Proyecto
+## 📁 Project Structure
 
 ```
 running-coach-agent/
-├── main.py              # Aplicación principal
-├── config.py            # Configuración (carga credenciales desde .env)
-├── .env                 # Variables de entorno (NO commitear)
-├── .env.example         # Plantilla de variables (copiar a .env)
-├── .gitignore          # Archivos a ignorar en git
-├── strava_client.py     # Cliente de Strava API  
-├── training_analyzer.py # Análisis de datos
-├── running_coach.py     # Agente coach con Claude
-├── requirements.txt     # Dependencias
-├── README.md           # Esta documentación
-├── CLAUDE.md           # Documentación técnica
-├── venv/               # Entorno virtual (generado, NO commitear)
-└── strava_token.json   # Token de Strava (generado, NO commitear)
+├── main.py              # Main application
+├── config.py            # Configuration (loads credentials from .env)
+├── .env                 # Environment variables (DO NOT commit)
+├── .env.example         # Variables template (copy to .env)
+├── .gitignore          # Files to ignore in git
+├── strava_client.py     # Strava API client
+├── training_analyzer.py # Data analysis
+├── running_coach.py     # Coach agent with Claude
+├── requirements.txt     # Dependencies
+├── README.md           # This documentation
+├── CLAUDE.md           # Technical documentation
+├── venv/               # Virtual environment (generated, DO NOT commit)
+└── strava_token.json   # Strava token (generated, DO NOT commit)
 ```
 
-## 🔧 Configuración Avanzada
+## 🔧 Advanced Configuration
 
-### Cambiar el periodo de análisis
+### Change analysis period
 
-En `.env` (o `.env.dev`):
+In `.env` (or `.env.dev`):
 
 ```python
-WEEKS_TO_ANALYZE = 8  # Analizar últimas 8 semanas
+WEEKS_TO_ANALYZE = 8  # Analyze last 8 weeks
 ```
 
-### Personalizar el prompt del coach
+### Customize coach prompt
 
-Edita `COACH_SYSTEM_PROMPT` en `config.py` para ajustar la personalidad y enfoque del coach.
+Edit `COACH_SYSTEM_PROMPT` in `config.py` to adjust the coach's personality and focus.
 
-### Usar diferentes modelos de Claude
+### Use different Claude models
 
-En `running_coach.py`:
+In `running_coach.py`:
 
 ```python
-self.model = "claude-opus-4-20250514"  # Para análisis más profundos
+self.model = "claude-opus-4-20250514"  # For deeper analysis
 ```
 
-## 🛠️ Solución de Problemas
+## 🛠️ Troubleshooting
 
-### Error: "No se recibió el código de autorización"
+### Error: "Authorization code not received"
 
-- Asegúrate de copiar la URL completa después de hacer clic en "Authorize"
-- Si solo copias el código, debe ser el valor completo después de `code=`
-- Verifica que el `STRAVA_REDIRECT_URI` en `.env` sea exactamente `http://localhost:8000/authorized`
+- Make sure to copy the complete URL after clicking "Authorize"
+- If only copying the code, it must be the full value after `code=`
+- Verify that `STRAVA_REDIRECT_URI` in `.env` is exactly `http://localhost:8000/authorized`
 
-### Error: "Token expirado"
+### Error: "Token expired"
 
-- El token se refresca automáticamente
-- Si persiste, elimina `strava_token.json` y vuelve a autenticar
+- The token refreshes automatically
+- If it persists, delete `strava_token.json` and re-authenticate
 
-### No se cargan actividades
+### Activities not loading
 
-- Verifica que tengas actividades de running en Strava
-- Aumenta `WEEKS_TO_ANALYZE` si tus entrenamientos son más antiguos
+- Verify you have running activities in Strava
+- Increase `WEEKS_TO_ANALYZE` if your workouts are older
 
-### Ejecutando en WSL (Windows Subsystem for Linux)
+### Running in WSL (Windows Subsystem for Linux)
 
-- El flujo de autenticación usa entrada manual del código (no servidor HTTP)
-- Asegúrate de tener el entorno virtual activado antes de ejecutar
-- Los archivos generados (`.env`, `strava_token.json`) se crean en el sistema WSL
+- Authentication flow uses manual code entry (not HTTP server)
+- Make sure to activate the virtual environment before running
+- Generated files (`.env`, `strava_token.json`) are created in the WSL system
 
 ### Error: "externally-managed-environment"
 
-Este error ocurre en sistemas Linux modernos cuando intentas instalar paquetes globalmente:
+This error occurs on modern Linux systems when trying to install packages globally:
 
 ```bash
-# Solución: usar entorno virtual
+# Solution: use virtual environment
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## 🔐 Seguridad
+## 🔐 Security
 
-- **NUNCA** subas el archivo `.env` o `.env.dev` (ya están en `.gitignore`)
-- No compartas credenciales; usa `.env.example` como plantilla sin valores reales
-- Las credenciales solo se usan localmente
+- **NEVER** upload the `.env` or `.env.dev` file (already in `.gitignore`)
+- Don't share credentials; use `.env.example` as template without real values
+- Credentials are only used locally
 
-## 🤝 Contribuciones
+## 🤝 Contributions
 
-Ideas para mejoras:
-- Interfaz web con Streamlit
-- Gráficas de progreso
-- Integración con más plataformas (Garmin, Polar)
-- Exportar planes de entrenamiento
-- Notificaciones automáticas
+Ideas for improvements:
+- Web interface with Streamlit
+- Progress charts
+- Integration with more platforms (Garmin, Polar)
+- Export training plans
+- Automatic notifications
 
-## 📝 Licencia
+## 📝 License
 
-Proyecto personal - Uso libre
+Personal project - Free use
 
-## 🙏 Agradecimientos
+## 🙏 Acknowledgements
 
-- **Strava API** por el acceso a datos de entrenamiento
-- **Anthropic Claude** por el poder del LLM
-- **Jack Daniels** por las fórmulas de entrenamiento
+- **Strava API** for access to training data
+- **Anthropic Claude** for the LLM power
+- **Jack Daniels** for training formulas
 
 ---
 
-Hecho con ❤️ para corredores que aman los datos
+Made with ❤️ for data-loving runners
 
-¿Preguntas? Contacta a [tu email]
+Questions? Contact [your email]
